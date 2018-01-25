@@ -1,0 +1,1 @@
+data class CardModel(var name: String)
