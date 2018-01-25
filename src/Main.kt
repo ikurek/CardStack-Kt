@@ -14,6 +14,17 @@ object Main {
         deck.put(CardModel("test3"), DeckPosition.RANDOM)
         deck.put(CardModel("test4"), DeckPosition.RANDOM)
 
+        var list: ArrayList<CardModel> = arrayListOf()
+        list.add(CardModel("list0"))
+        list.add(CardModel("list1"))
+        list.add(CardModel("list2"))
+
+        deck.put(list, DeckPosition.TOP)
+
+        if (deck.canDrawMany(5)) {
+            deck.draw(5, DeckPosition.TOP)
+        }
+
         printDeck(deck)
     }
 
