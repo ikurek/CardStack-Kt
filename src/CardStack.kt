@@ -20,7 +20,7 @@ class CardStack {
      * @param drawType Enum that describes action taken when card is drawn
      */
     constructor(dataModel: Any, drawType: DrawType) {
-        this.listOfCards = mutableListOf(dataModel)
+        this.listOfCards = mutableListOf()
         this.drawType = drawType
     }
 
@@ -39,7 +39,7 @@ class CardStack {
      * @param dataModel Class that will represent a single card
      */
     constructor(dataModel: Any) {
-        this.listOfCards = mutableListOf(dataModel)
+        this.listOfCards = mutableListOf()
         this.drawType = DrawType.REMOVE
     }
 
@@ -201,12 +201,11 @@ class CardStack {
         }
 
         when (splitType) {
+
         // Split all cards, don't check if each player has equal number
             SplitType.ALL -> {
-                // Counter that holds number of iterations
-                var counter = 0
                 // Iterating over cards in current deck
-                while (counter <= listOfCards.size) {
+                while (!listOfCards.isEmpty()) {
                     // Iterating over all new decks to split cards equally
                     for (i in 0..(numberOfDecks - 1)) {
                         // If there are cards left
@@ -215,15 +214,14 @@ class CardStack {
                             listOfDecks[i].put(listOfCards[0], DeckPosition.TOP)
                             // Remove it from current deck
                             listOfCards.removeAt(0)
-                            counter++
                         }
                     }
                 }
             }
 
         // Splits cards equally, so each deck has the same number of cards
+        // FIXME: Works badly
             SplitType.EQUAL -> {
-
                 // Check how many cards should be left in the deck
                 val cardsToLeave = (listOfCards.size) % numberOfDecks
                 // Counter that holds number of iterations

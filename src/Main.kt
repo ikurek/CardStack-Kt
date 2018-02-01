@@ -9,16 +9,22 @@ object Main {
 
         val deck = CardStack(CardModel::class, DrawType.SHUFFLE_BACK)
 
-        deck.put(CardModel("test0"), DeckPosition.RANDOM)
-        deck.put(CardModel("test1"), DeckPosition.RANDOM)
-        deck.put(CardModel("test2"), DeckPosition.RANDOM)
-        deck.put(CardModel("test3"), DeckPosition.RANDOM)
-        deck.put(CardModel("test4"), DeckPosition.RANDOM)
+        System.out.println("Starting deck size: ${deck.size()} cards")
+
 
         var list: ArrayList<CardModel> = arrayListOf()
         list.add(CardModel("list0"))
         list.add(CardModel("list1"))
         list.add(CardModel("list2"))
+        list.add(CardModel("list3"))
+        list.add(CardModel("list4"))
+        list.add(CardModel("list5"))
+        list.add(CardModel("list6"))
+        list.add(CardModel("list7"))
+        list.add(CardModel("list8"))
+        list.add(CardModel("list9"))
+        list.add(CardModel("list10"))
+
 
         deck.put(list, DeckPosition.TOP)
         System.out.println("Added ${deck.size()} cards")
