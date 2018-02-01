@@ -1,5 +1,6 @@
 import enums.DeckPosition
 import enums.DrawType
+import enums.SplitType
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,6 +33,7 @@ class CardStack {
         this.listOfCards = collection.toMutableList()
         this.drawType = drawType
     }
+
     /**
      * Backup empty constructor, draw type is set to fixed by default
      * @param dataModel Class that will represent a single card
@@ -60,9 +62,10 @@ class CardStack {
     /**
      * @return number of cards left in deck
      */
-    fun cardsLeft(): Int {
+    fun size(): Int {
         return listOfCards.size
     }
+
     /**
      * Shuffles whole deck
      */
@@ -113,6 +116,7 @@ class CardStack {
             put(any, deckPosition)
         }
     }
+
     /**
      * Draws a card from the deck
      * @param deckPosition Enum describing where will the card be drawn from
@@ -183,6 +187,68 @@ class CardStack {
         }
 
         return CardStack(listOfDrawnCards, drawType)
+    }
+
+    /**
+     * Splits deck to moany smaller decks
+     */
+    fun splitBetween(numberOfDecks: Int, drawType: DrawType, splitType: SplitType): List<CardStack> {
+
+        // Create list of decks
+        var listOfDecks = mutableListOf<CardStack>()
+        for (i in 0..(numberOfDecks - 1)) {
+            listOfDecks.add(CardStack(Any(), drawType))
+        }
+
+        when (splitType) {
+        // Split all cards, don't check if each player has equal number
+            SplitType.ALL -> {
+                // Counter that holds number of iterations
+                var counter = 0
+                // Iterating over cards in current deck
+                while (counter <= listOfCards.size) {
+                    // Iterating over all new decks to split cards equally
+                    for (i in 0..(numberOfDecks - 1)) {
+                        // If there are cards left
+                        if (!listOfCards.isEmpty()) {
+                            // Put top card to next deck
+                            listOfDecks[i].put(listOfCards[0], DeckPosition.TOP)
+                            // Remove it from current deck
+                            listOfCards.removeAt(0)
+                            counter++
+                        }
+                    }
+                }
+            }
+
+        // Splits cards equally, so each deck has the same number of cards
+            SplitType.EQUAL -> {
+
+                // Check how many cards should be left in the deck
+                val cardsToLeave = (listOfCards.size) % numberOfDecks
+                // Counter that holds number of iterations
+                var counter = 0
+                // Iterating over cards in current deck
+                while (counter <= (listOfCards.size - cardsToLeave)) {
+                    // Iterating over all new decks to split cards equally
+                    for (i in 0..(numberOfDecks - 1)) {
+                        // If there are cards left
+                        if (counter != (listOfCards.size - cardsToLeave)) {
+                            // Put top card to next deck
+                            listOfDecks[i].put(listOfCards[0], DeckPosition.TOP)
+                            // Remove it from current deck
+                            listOfCards.removeAt(0)
+                            counter++
+                        }
+                    }
+                }
+            }
+        }
+
+        // Return created list of decks
+        return listOfDecks
+
+
     }
 
     // CASTING TO OTHER OBJECTS

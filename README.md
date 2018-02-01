@@ -44,7 +44,7 @@ if (deck.canDrawMany(5)) {
 ### Checks:
 * `canDraw() : Boolean` true, if next card can be drawn
 * `canDrawMany(numberOfCards: Int) : Boolean` true, if specified number of cards can be drawn
-* `fun cardsLeft() : Int` returns number of cards left
+* `cardsLeft() : Int` returns number of cards left
 
 ### Data operations:
 * `shuffle()`
@@ -61,6 +61,6 @@ if (deck.canDrawMany(5)) {
 * `DeckPosition.RANDOM` puts/draws card from a random position
 
 ## Type Converters:
-* `fun toMutableList(): MutableList<Any>`
-* `fun toTypedArray(): Array<Any>`
-* `fun toArrayList(): ArrayList<Any>`
+* `toMutableList(): MutableList<Any>`
+* `toTypedArray(): Array<Any>`
+* `toArrayList(): ArrayList<Any>`
